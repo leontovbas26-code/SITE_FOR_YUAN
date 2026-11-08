@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЯН — Официальный сайт легенды</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+  body { background: #0f0a1e; color: #fff; font-family: 'Trebuchet MS', system-ui, sans-serif; overflow-x: hidden; }
+  .grad { background: linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5,#00f5a0,#ffe53b,#ff3cac); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: slide 5s linear infinite; }
+  @keyframes slide { to { background-position: 300% 0; } }
+  .glitch { position: relative; display: inline-block; }
+  .glitch::before, .glitch::after { content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; background: #0f0a1e; overflow: hidden; }
+  .glitch::before { left: 3px; text-shadow: -2px 0 #ff00c1; animation: g1 2.5s infinite linear alternate-reverse; }
+  .glitch::after { left: -3px; text-shadow: -2px 0 #00fff9; animation: g2 3s infinite linear alternate-reverse; }
+  @keyframes g1 { 0%{clip-path:inset(20% 0 70% 0)} 20%{clip-path:inset(60% 0 10% 0)} 40%{clip-path:inset(40% 0 40% 0)} 60%{clip-path:inset(80% 0 5% 0)} 80%{clip-path:inset(10% 0 80% 0)} 100%{clip-path:inset(50% 0 30% 0)} }
+  @keyframes g2 { 0%{clip-path:inset(70% 0 10% 0)} 20%{clip-path:inset(10% 0 80% 0)} 40%{clip-path:inset(30% 0 50% 0)} 60%{clip-path:inset(5% 0 85% 0)} 80%{clip-path:inset(55% 0 25% 0)} 100%{clip-path:inset(85% 0 5% 0)} }
+  .card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 1.25rem; backdrop-filter: blur(6px); transition: transform .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 10px 30px rgba(255,60,172,.25); }
+  .float { animation: float 3s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-14px) rotate(4deg); } }
+  .fall { position: fixed; top: -50px; z-index: 100; pointer-events: none; animation: fall linear forwards; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+  .shake { animation: shake .4s; }
+  @keyframes shake { 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+  .pop { animation: pop .2s; }
+  @keyframes pop { 50% { transform: scale(1.25); } }
+  input[type=range] { accent-color: #ff3cac; }
+  .marquee { display:flex; width:max-content; animation: marq 25s linear infinite; }
+  @keyframes marq { to { transform: translateX(-50%); } }
+</style>
+</head>
+<body>
+
+<!-- Бегущая строка -->
+<div class="bg-yellow-300 text-black font-bold py-2 overflow-hidden whitespace-nowrap">
+  <div class="marquee">
+    <span id="mq1"></span><span id="mq2"></span>
+  </div>
+</div>
+
+<!-- Навигация -->
+<nav class="sticky top-0 z-50 bg-[#0f0a1e]/80 backdrop-blur border-b border-white/10">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    <button id="logo" class="text-2xl font-black grad">ЯН.exe</button>
+    <div class="hidden sm:flex gap-5 text-sm text-white/80">
+      <a href="#meter" class="hover:text-pink-400">Ян-метр</a>
+      <a href="#excuse" class="hover:text-pink-400">Отмазки</a>
+      <a href="#pizza" class="hover:text-pink-400">Пицца</a>
+      <a href="#awards" class="hover:text-pink-400">Достижения</a>
+      <a href="#reviews" class="hover:text-pink-400">Отзывы</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="relative max-w-5xl mx-auto px-4 pt-16 pb-24 text-center">
+  <div class="absolute -z-10 top-10 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-pink-600/30 blur-[120px]"></div>
+  <p class="text-white/60 tracking-widest uppercase text-sm mb-4">Добро пожаловать на официальный сайт</p>
+  <h1 class="text-[6rem] sm:text-[10rem] leading-none font-black mb-2">
+    <span class="glitch grad" data-text="ЯН">ЯН</span>
+  </h1>
+  <div class="text-2xl sm:text-3xl h-10 font-semibold text-emerald-300 mb-8"><span id="typed"></span><span class="animate-pulse">|</span></div>
+  <div class="text-7xl float mb-10">😎</div>
+
+  <div class="relative h-24 flex items-center justify-center gap-4 flex-wrap" id="btnZone">
+    <button id="yesBtn" class="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 to-orange-400 font-bold text-lg shadow-lg hover:scale-110 transition">Восхититься Яном 👏</button>
+    <button id="runBtn" class="px-6 py-3 rounded-full bg-red-600 font-bold" style="transition: all .15s">Не нажимать!</button>
+  </div>
+  <p id="heroMsg" class="mt-4 text-white/60 h-6"></p>
+</header>
+
+<!-- Ян-метр -->
+<section id="meter" class="max-w-3xl mx-auto px-4 py-16">
+  <h2 class="text-4xl font-black text-center mb-2">📏 Ян-метр</h2>
+  <p class="text-center text-white/60 mb-8">Научно измеряем уровень Яна в окружающей среде</p>
+  <div class="card p-6 sm:p-8 text-center">
+    <input id="name" type="text" placeholder="Введи своё имя" class="w-full bg-white/10 rounded-xl px-4 py-3 mb-4 outline-none focus:ring-2 ring-pink-500 text-center">
+    <button id="meterBtn" class="px-6 py-3 rounded-xl bg-emerald-500 font-bold hover:bg-emerald-400 transition text-black">Измерить схожесть с Яном</button>
+    <div class="mt-6 h-6 bg-white/10 rounded-full overflow-hidden"><div id="bar" class="h-full w-0 bg-gradient-to-r from-pink-500 to-yellow-300 transition-all duration-[1800ms]"></div></div>
+    <div id="meterRes" class="mt-4 text-xl font-bold min-h-[3.5rem]"></div>
+  </div>
+</section>
+
+<!-- Отмазки -->
+<section id="excuse" class="max-w-3xl mx-auto px-4 py-16">
+  <h2 class="text-4xl font-black text-center mb-2">🤥 Генератор отмазок Яна</h2>
+  <p class="text-center text-white/60 mb-8">Почему Ян опять опоздал? Узнай правду (нет)</p>
+  <div class="card p-8 text-center">
+    <p id="excuseText" class="text-2xl font-semibold min-h-[5rem] flex items-center justify-center">Нажми на кнопку — и всё станет ясно.</p>
+    <button id="excuseBtn" class="mt-4 px-6 py-3 rounded-xl bg-purple-500 font-bold hover:bg-purple-400 transition">Придумать отмазку</button>
+  </div>
+</section>
+
+<!-- Пицца -->
+<section id="pizza" class="max-w-3xl mx-auto px-4 py-16">
+  <h2 class="text-4xl font-black text-center mb-2">🍕 Накорми Яна</h2>
+  <p class="text-center text-white/60 mb-8">Ян голоден. Помоги ему. Кликай!</p>
+  <div class="card p-8 text-center">
+    <button id="pizzaBtn" class="text-8xl select-none active:scale-90 transition">🍕</button>
+    <div class="mt-4 text-3xl font-black"><span id="pizzaCount">0</span> кусочков</div>
+    <div id="pizzaStatus" class="mt-2 text-white/70 h-6">Ян смотрит на тебя голодными глазами...</div>
+  </div>
+</section>
+
+<!-- Достижения -->
+<section id="awards" class="max-w-5xl mx-auto px-4 py-16">
+  <h2 class="text-4xl font-black text-center mb-10">🏆 Достижения</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="card p-6"><div class="text-4xl mb-2">🛌</div><h3 class="font-bold text-lg">Мастер сна</h3><p class="text-white/60 text-sm">Проспал будильник, второй будильник и конец света.</p></div>
+    <div class="card p-6"><div class="text-4xl mb-2">⏰</div><h3 class="font-bold text-lg">«Буду через 5 минут»</h3><p class="text-white/60 text-sm">Пять минут по версии Яна равны примерно 1 часу 40 минутам.</p></div>
+    <div class="card p-6"><div class="text-4xl mb-2">🧠</div><h3 class="font-bold text-lg">Гений мемов</h3><p class="text-white/60 text-sm">Кинул мем, который уже видели все. Но с огромной уверенностью.</p></div>
+    <div class="card p-6"><div class="text-4xl mb-2">🍔</div><h3 class="font-bold text-lg">Дегустатор еды</h3><p class="text-white/60 text-sm">«Я только попробую» — и тарелка пуста.</p></div>
+    <div class="card p-6"><div class="text-4xl mb-2">📱</div><h3 class="font-bold text-lg">Телефон на 1%</h3><p class="text-white/60 text-sm">Живёт на грани. Зарядка — для слабаков.</p></div>
+    <div class="card p-6"><div class="text-4xl mb-2">🎮</div><h3 class="font-bold text-lg">«Ещё одну катку»</h3><p class="text-white/60 text-sm">Последняя катка была 14 каток назад.</p></div>
+  </div>
+</section>
+
+<!-- Отзывы -->
+<section id="reviews" class="max-w-5xl mx-auto px-4 py-16">
+  <h2 class="text-4xl font-black text-center mb-10">💬 Отзывы (100% настоящие)</h2>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card p-6"><p class="italic">«Познакомился с Яном — и жизнь разделилась на до и после. Сейчас после. Пока не понял, лучше ли».</p><p class="mt-3 text-pink-400 font-bold">— Сосед</p></div>
+    <div class="card p-6"><p class="italic">«Ян — человек-праздник. Особенно когда приходит на праздник вовремя. Ждём такого».</p><p class="mt-3 text-pink-400 font-bold">— Друг</p></div>
+    <div class="card p-6"><p class="italic">«Пять звёзд из пяти. Шестую не дал, потому что Ян сам её съел».</p><p class="mt-3 text-pink-400 font-bold">— Анонимный критик</p></div>
+  </div>
+</section>
+
+<!-- Гороскоп -->
+<section class="max-w-3xl mx-auto px-4 py-16 text-center">
+  <div class="card p-8">
+    <h2 class="text-3xl font-black mb-3">🔮 Гороскоп для Яна на сегодня</h2>
+    <p id="horo" class="text-xl text-yellow-200"></p>
+  </div>
+</section>
+
+<footer class="text-center text-white/50 py-10 border-t border-white/10 text-sm">
+  <p>© <span id="year"></span> Ян Inc. Все права на пиццу защищены.</p>
+  <p class="mt-1">Сделано с любовью и лёгким троллингом 💜 · Нажми на лого вверху — будет сюрприз</p>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+$('year').textContent = new Date().getFullYear();
+
+// Бегущая строка
+const mqText = '🔥 ВНИМАНИЕ: Ян найден в естественной среде обитания ⚡ Ян уже выехал (нет) 🍕 Ян одобряет пиццу ⭐ Ян — это не имя, это образ жизни 🚀 ';
+$('mq1').textContent = mqText.repeat(2);
+$('mq2').textContent = mqText.repeat(2);
+
+// Печатающийся текст
+const phrases = ['Легенда. Миф. Ян.', 'Человек. Пароход. Ян.', 'Уже выехал (из дома нет)', 'Просто скажите «Ян» — и все улыбнутся', 'Загрузка гениальности... 99%'];
+let pi = 0, ci = 0, del = false;
+function type() {
+  const p = phrases[pi];
+  $('typed').textContent = p.slice(0, ci);
+  if (!del && ci < p.length) { ci++; setTimeout(type, 80); }
+  else if (!del) { del = true; setTimeout(type, 1500); }
+  else if (ci > 0) { ci--; setTimeout(type, 35); }
+  else { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 300); }
+}
+type();
+
+// Конфетти из эмодзи
+function rain(emojis, n = 40) {
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement('span');
+    s.className = 'fall';
+    s.textContent = pick(emojis);
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.fontSize = 20 + Math.random() * 30 + 'px';
+    s.style.animationDuration = 2 + Math.random() * 3 + 's';
+    s.style.animationDelay = Math.random() * 1 + 's';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 6500);
+  }
+}
+
+// Герой-кнопки
+const msgs = ['Спасибо! Ян это ценит 🥹', 'Ян покраснел 😳', 'Ещё! Ян любит внимание', 'Ты теперь официальный фанат Яна 🎖️', 'Ян тебя запомнил...'];
+$('yesBtn').onclick = () => { $('heroMsg').textContent = pick(msgs); rain(['🎉','👏','⭐','🍕','😎'], 30); };
+
+const runBtn = $('runBtn');
+let dodges = 0;
+const runTexts = ['Ну я же просил!', 'Мимо!', 'Не поймаешь!', 'Ян бы поймал...', 'Ладно, сдаюсь... (нет)', 'Серьёзно?'];
+function dodge() {
+  const zone = $('btnZone').getBoundingClientRect();
+  runBtn.style.position = 'fixed';
+  const x = Math.random() * (window.innerWidth - 160);
+  const y = 80 + Math.random() * (window.innerHeight - 160);
+  runBtn.style.left = x + 'px';
+  runBtn.style.top = y + 'px';
+  runBtn.textContent = pick(runTexts);
+  dodges++;
+  $('heroMsg').textContent = 'Кнопка убегала от тебя ' + dodges + ' раз(а)';
+}
+runBtn.addEventListener('mouseenter', dodge);
+runBtn.addEventListener('touchstart', e => { e.preventDefault(); dodge(); });
+runBtn.addEventListener('click', () => { document.body.classList.add('shake'); setTimeout(() => document.body.classList.remove('shake'), 400); });
+
+// Ян-метр
+const meterComments = [
+  [0, 'Ты — полная противоположность Яна. Это странно и подозрительно.'],
+  [30, 'Ян-потенциал есть, но надо больше пиццы.'],
+  [60, 'Ты на пути к Яну. Продолжай опаздывать и шутить.'],
+  [90, 'Практически Ян! Нас смущает только отсутствие пиццы в руках.'],
+  [100, 'ТЫ И ЕСТЬ ЯН?! Немедленно покажи документы!']
+];
+$('meterBtn').onclick = () => {
+  const name = $('name').value.trim() || 'Аноним';
+  const val = Math.random() < 0.08 ? 100 : Math.floor(Math.random() * 99);
+  $('bar').style.width = '0%';
+  $('meterRes').textContent = 'Измеряем...';
+  setTimeout(() => $('bar').style.width = val + '%', 50);
+  setTimeout(() => {
+    let c = meterComments[0][1];
+    meterComments.forEach(([t, s]) => { if (val >= t) c = s; });
+    $('meterRes').innerHTML = name + ': <span class="text-yellow-300">' + val + '% Яна</span><br><span class="text-base font-normal text-white/70">' + c + '</span>';
+    if (val === 100) rain(['🎉','👑','😎'], 50);
+  }, 1900);
+};
+
+// Отмазки
+const who = ['Ян опоздал, потому что', 'Ян не ответил, потому что', 'Ян забыл, потому что', 'Ян не пришёл, потому что', 'Ян не сделал, потому что'];
+const why = [
+  'его телефон был в режиме «не беспокоить» с 2019 года.',
+  'в лифте застрял голубь, и надо было вести переговоры.',
+  'у него был важный созвон с самим собой.',
+  'Меркурий в ретрограде, а Ян с ним в хороших отношениях.',
+  'кот сел на ноги, а будить кота — это жестоко.',
+  'он честно собирался, но сначала решил «пять минут полежать».',
+  'WiFi показывал две палочки, а это не повод для подвигов.',
+  'он спасал мир, но никому не скажет — скромность.',
+  'пицца сама пришла, и пришлось её принять.',
+  'навигатор посоветовал «развернитесь» 14 раз подряд.'
+];
+$('excuseBtn').onclick = () => {
+  const el = $('excuseText');
+  el.textContent = pick(who) + ' ' + pick(why);
+  el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+};
+
+// Пицца
+let pizza = 0;
+const status = [
+  [0, 'Ян смотрит на тебя голодными глазами...'],
+  [10, 'Ян начал жевать. Одобряет.'],
+  [25, 'Ян сказал «ммм». Это высшая награда.'],
+  [50, 'Ян уже не голоден, но продолжает из принципа.'],
+  [100, 'Ян достиг пицца-просветления 🧘'],
+  [200, 'Ян стал пиццей. Или пицца стала Яном. Не разобрать.']
+];
+$('pizzaBtn').onclick = () => {
+  pizza++;
+  $('pizzaCount').textContent = pizza;
+  let s = status[0][1];
+  status.forEach(([t, m]) => { if (pizza >= t) s = m; });
+  $('pizzaStatus').textContent = s;
+  if (pizza % 10 === 0) rain(['🍕','😋','🧀'], 15);
+};
+
+// Гороскоп
+const horos = [
+  'Сегодня звёзды советуют: поешь. Остальное неважно.',
+  'Юпитер говорит — не отвечай на сообщения до обеда. Ты и так не отвечаешь, но теперь официально.',
+  'Сегодня тебя ждёт неожиданная встреча... с холодильником.',
+  'Венера намекает: пора заряжать телефон. Ты не послушаешь.',
+  'День удачный для опоздания. Впрочем, как и любой другой.',
+  'Звёзды в шоке от твоих планов, но поддерживают.'
+];
+$('horo').textContent = pick(horos);
+
+// Лого — сюрприз
+let clicks = 0;
+$('logo').onclick = () => {
+  clicks++;
+  rain(['😎','🎉','🍕','🚀','🤣','👑'], 50);
+  if (clicks === 5) { alert('Ты нашёл пасхалку! Ян гордится тобой 🏅'); clicks = 0; }
+};
+
+// Секретный код: набери "ян" (на русской раскладке) или "yan"
+let buf = '';
+document.addEventListener('keydown', e => {
+  buf = (buf + e.key.toLowerCase()).slice(-3);
+  if (buf === 'yan') { rain(['👑','😎','🔥'], 80); document.body.style.transform = 'rotate(2deg)'; setTimeout(() => document.body.style.transform = '', 800); }
+});
+</script>
+</body>
+</html>
